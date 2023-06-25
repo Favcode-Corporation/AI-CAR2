@@ -5,12 +5,10 @@ import numpy as np
 import os
 import gen_annotation
 
-diret = os.path.dirname(os.path.abspath(__file__))
-
 gen_annotation.create_dir_annotation()
 
 # Model
-model = torch.hub.load(diret+'/yolov5', 'custom', path=diret+'/AI-CAR2-MODEL.pt', source='local', force_reload=True)
+model = torch.hub.load('/yolov5', 'custom', path='/AI-CAR2-MODEL.pt', source='local', force_reload=True)
 
 cap = cv2.VideoCapture('estrada.mp4')
 larguraCap, alturaCap = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
