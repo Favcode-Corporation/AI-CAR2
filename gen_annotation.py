@@ -75,7 +75,7 @@ def load_annotation(path):
         coco_annotations = last_annotation
         path_dir = path
         print(f"Images Loaded: {len(coco_annotations['images'])}", '|' ,f"Annotations Loaded: {len(coco_annotations['annotations'])}")
-        time.sleep(2)
+        time.sleep(1)
         return len(coco_annotations['images'])
         
 
