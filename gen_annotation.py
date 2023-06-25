@@ -114,9 +114,6 @@ def add(image, labels, bboxs, auto_commit):
     for label, bbox in zip(labels, bboxs):
         annotation_id = len(coco_annotations['annotations'])+1
         category_id = categories[label]
-        
-        if len(labels) > 1:
-            print('Image_id:', image_id)
 
         coco_annotations["annotations"].append({
             "id": annotation_id,
