@@ -3,6 +3,7 @@ import os
 import cv2
 import uuid
 from datetime import datetime
+import time
 import pytz
 import warnings
 
@@ -15,6 +16,11 @@ categories = {
     "Onibus": 4
 }
 
+data_atual = datetime.now(pytz.utc)
+fuso_horario = pytz.timezone('UTC')
+data_atual_fuso = data_atual.astimezone(fuso_horario)
+data_formatada = data_atual_fuso.strftime('%Y-%m-%dT%H:%M:%S%z')
+
 coco_annotations = {
     "info": {
         "year": "2023",
@@ -22,7 +28,7 @@ coco_annotations = {
         "description": "Created from AI-DATA2 ML",
         "contributor": "Thigos Rodrigues",
         "url": "https://public.roboflow.ai/object-detection/undefined",
-        "date_created": "2023-06-25T02:35:38+00:00"
+        "date_created": data_formatada
     },
     "licenses": [
         {
@@ -61,6 +67,17 @@ coco_annotations = {
     "images": [],
     "annotations": [],
 }
+
+def load_annotation(path):
+    global path_dir
+    with open(f'{path}/_annotations.coco.json', "r") as file:
+        last_annotation = json.load(file)
+        coco_annotations = last_annotation
+        path_dir = path
+        print(f"Images Loaded: {len(coco_annotations['images'])}", '|' ,f"Annotations Loaded: {len(coco_annotations['annotations'])}")
+        time.sleep(2000)
+        return len(coco_annotations['images'])
+        
 
 def create_dir_annotation():
     global path_dir
