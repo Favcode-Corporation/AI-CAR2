@@ -2,9 +2,9 @@ import torch
 import cv2
 from time import time
 import numpy as np
-import os
 import gen_annotation
 import argparse
+from colorama import Fore
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input_video', type=str, help='Input Video Path', required=True)
@@ -44,18 +44,13 @@ while True:
             br = (int(result['xmax']), int(result['ymax']))
             labels.append(result['name'])
 
-            print(f"Detectado: {result['name']} C: {confidence}")
+            print(Fore.GREEN + f"Detectado: {result['name']} C: {confidence}")
 
             # bbox = [x_min, y_min, largura, altura]
             bboxs.append([tl[0], tl[1], br[0] - tl[0], br[1] - tl[1]])
 
     if len(labels) > 0:
         _, result = gen_annotation.add(image=frame, labels=labels, bboxs=bboxs, auto_commit=True)
-        print(result)
-
-    frame = cv2.putText(frame, "FPS: {:.2f}".format(fps) , (10, 50) , cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 1)
-    cv2.imshow('preview', frame)
-    if cv2.waitKey(30) & 0xFF == ord('q'):
-        break
+        print(Fore.YELLOW + result + "  FPS: {:.2f}".format(fps))
 
 cap.release()
