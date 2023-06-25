@@ -6,7 +6,7 @@ import os
 
 
 # Model
-model = torch.hub.load('/yolov5', 'custom', path='/AI-CAR2-MODEL.pt', source='local', force_reload=True)
+model = torch.hub.load('yolov5', 'custom', path='AI-CAR2-MODEL.pt', source='local', force_reload=True)
 
 cap = cv2.VideoCapture('estrada.mp4')
 larguraCap, alturaCap = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -15,6 +15,9 @@ colors = [tuple(255 * np.random.rand(3)) for _ in range(10)]
 
 while True:
     ret, frame = cap.read()
+
+    if not ret:
+        break
         
     start_time = time()
     results = model(frame)
