@@ -6,7 +6,7 @@ import os
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('video_path', type=str, help='Input Video Path', required=True)
+parser.add_argument('--video_path', type=str, help='Input Video Path', required=True)
 args = parser.parse_args()
 
 # Model

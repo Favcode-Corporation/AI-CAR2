@@ -7,7 +7,7 @@ import argparse
 from colorama import Fore
 
 parser = argparse.ArgumentParser()
-parser.add_argument('video_path', type=str, help='Input Video Path', required=True)
+parser.add_argument('--video_path', type=str, help='Input Video Path', required=True)
 args = parser.parse_args()
 
 gen_annotation.create_dir_annotation()
