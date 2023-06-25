@@ -3,12 +3,16 @@ import cv2
 from time import time
 import numpy as np
 import os
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('input_video', type=str, help='Input Video Path', required=True)
+args = parser.parse_args()
 
 # Model
 model = torch.hub.load('yolov5', 'custom', path='AI-CAR2-MODEL.pt', source='local', force_reload=True)
 
-cap = cv2.VideoCapture('estrada.mp4')
+cap = cv2.VideoCapture(args.input_video)
 larguraCap, alturaCap = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 colors = [tuple(255 * np.random.rand(3)) for _ in range(10)]
