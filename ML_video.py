@@ -17,6 +17,8 @@ colors = [tuple(255 * np.random.rand(3)) for _ in range(10)]
 
 while True:
     ret, frame = cap.read()
+
+    frame = cv2.resize(frame, (640, 480))
         
     if not ret:
         break
