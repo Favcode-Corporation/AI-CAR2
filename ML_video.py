@@ -11,6 +11,8 @@ parser.add_argument('--video_path', type=str, help='Input Video Path', required=
 parser.add_argument('--last_annotation_path', type=str, help='Last Annotation Path')
 args = parser.parse_args()
 
+last_image = 0
+
 if args.last_annotation_path == None:
     gen_annotation.create_dir_annotation()
 else:
