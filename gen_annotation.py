@@ -69,7 +69,7 @@ coco_annotations = {
 }
 
 def load_annotation(path):
-    global path_dir
+    global path_dir, coco_annotations
     with open(f'{path}/_annotations.coco.json', "r") as file:
         last_annotation = json.load(file)
         coco_annotations = last_annotation
