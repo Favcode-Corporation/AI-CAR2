@@ -28,7 +28,8 @@ coco_annotations = {
         "description": "Created from AI-DATA2 ML",
         "contributor": "Thigos Rodrigues",
         "url": "https://public.roboflow.ai/object-detection/undefined",
-        "date_created": data_formatada
+        "date_created": data_formatada,
+        "last_frame": 0
     },
     "licenses": [
         {
@@ -76,8 +77,7 @@ def load_annotation(path):
         path_dir = path
         print(f"Images Loaded: {len(coco_annotations['images'])}", '|' ,f"Annotations Loaded: {len(coco_annotations['annotations'])}")
         time.sleep(1)
-        return len(coco_annotations['images'])
-        
+        return coco_annotations['info']['last_frame']
 
 def create_dir_annotation():
     global path_dir
@@ -106,8 +106,10 @@ def write_image(image):
     else:
         return file_name
 
-def add(image, labels, bboxs, auto_commit):
+def add(image, labels, bboxs, auto_commit, last_frame):
     global coco_annotations
+
+    coco_annotations['info']['last_frame'] = last_frame
 
     image_id = len(coco_annotations['images'])+1
     image_file_name = write_image(image)

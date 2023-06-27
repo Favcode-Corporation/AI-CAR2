@@ -11,12 +11,12 @@ parser.add_argument('--video_path', type=str, help='Input Video Path', required=
 parser.add_argument('--last_annotation_path', type=str, help='Last Annotation Path')
 args = parser.parse_args()
 
-last_image = 0
+last_frame = 0
 
 if args.last_annotation_path == None:
     gen_annotation.create_dir_annotation()
 else:
-    last_image = gen_annotation.load_annotation(args.last_annotation_path)
+    last_frame = gen_annotation.load_annotation(args.last_annotation_path)
 
 # Model
 model = torch.hub.load('yolov5', 'custom', path='AI-CAR2-MODEL.pt', source='local', force_reload=True)
@@ -50,7 +50,7 @@ while True:
 
     count_frames += 1
 
-    if count_frames > last_image:
+    if count_frames > last_frame:
         start_time = time()
         results = model(frame)
         
@@ -74,7 +74,7 @@ while True:
                 bboxs.append([tl[0], tl[1], br[0] - tl[0], br[1] - tl[1]])
 
         if len(labels) > 0:
-            _, result = gen_annotation.add(image=frame, labels=labels, bboxs=bboxs, auto_commit=True)
+            _, result = gen_annotation.add(image=frame, labels=labels, bboxs=bboxs, auto_commit=True, last_frame=quant_frames)
             print(Fore.YELLOW + result + "  FPS: {:.2f}".format(fps))
     else:
         print(Fore.YELLOW + "Image has already been annotated")
